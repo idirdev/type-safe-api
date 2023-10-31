@@ -151,3 +151,7 @@ Schema (Zod) ─── Router (Server) ─── Handler (Business Logic)
 ## License
 
 MIT
+
+## Comparison
+
+Similar to tRPC but works without a build step and generates standard OpenAPI specs.
