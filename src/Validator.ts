@@ -23,11 +23,9 @@ export class ValidationError extends Error {
 
 export class Validator {
   private coercionEnabled: boolean;
-  private stripUnknown: boolean;
 
-  constructor(options?: { coerce?: boolean; stripUnknown?: boolean }) {
+  constructor(options?: { coerce?: boolean }) {
     this.coercionEnabled = options?.coerce ?? true;
-    this.stripUnknown = options?.stripUnknown ?? true;
   }
 
   validate<T>(schema: ZodType<T>, data: unknown): T {
