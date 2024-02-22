@@ -28,8 +28,13 @@ export class Validator {
     this.coercionEnabled = options?.coerce ?? true;
   }
 
-  validate<T>(schema: ZodType<T>, data: unknown): T {
-    const preprocessed = this.coercionEnabled ? this.coerceTypes(data) : data;
+  coerce(data: unknown): unknown {
+    return this.coercionEnabled ? this.coerceTypes(data) : data;
+  }
+
+  validate<T>(schema: ZodType<T>, data: unknown, options?: { skipCoercion?: boolean }): T {
+    const skipCoercion = options?.skipCoercion ?? false;
+    const preprocessed = (!skipCoercion && this.coercionEnabled) ? this.coerceTypes(data) : data;
 
     const result = schema.safeParse(preprocessed);
 

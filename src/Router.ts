@@ -86,7 +86,11 @@ export class Router<TSchema extends Record<string, EndpointDefinition> = {}> {
     const { definition } = route;
 
     try {
-      const validatedInput = this.validator.validate(definition.input, rawCtx.input ?? {});
+      // Coerce rawCtx.input fields (e.g. query string numbers), then merge path
+      // params without re-coercing them so string params satisfy z.string() schemas.
+      const coercedInput = this.validator.coerce(rawCtx.input ?? {});
+      const mergedInput = { ...coercedInput, ...params };
+      const validatedInput = this.validator.validate(definition.input, mergedInput, { skipCoercion: true });
 
       const ctx: Context = {
         input: validatedInput,
@@ -103,7 +107,7 @@ export class Router<TSchema extends Record<string, EndpointDefinition> = {}> {
         return definition.handler(ctx);
       });
 
-      const validatedOutput = this.validator.validate(definition.output, output);
+      const validatedOutput = this.validator.validate(definition.output, output, { skipCoercion: true });
       return { success: true, data: validatedOutput };
     } catch (err) {
       if (err instanceof ValidationError) {
