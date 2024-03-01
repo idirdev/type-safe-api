@@ -155,3 +155,23 @@ MIT
 ## Comparison
 
 Similar to tRPC but works without a build step and generates standard OpenAPI specs.
+
+---
+
+## 🇫🇷 Documentation en français
+
+### Description
+type-safe-api est un framework d'API entièrement typé de bout en bout avec inférence automatique des types depuis les schémas Zod. Définissez votre API une seule fois et obtenez des handlers serveur typés, des appels client typés et une documentation OpenAPI — tout depuis une source unique. Un outil puissant pour éliminer les erreurs de typage entre le frontend et le backend.
+
+### Installation
+```bash
+npm install type-safe-api zod
+```
+
+### Utilisation
+```typescript
+import { createAPI } from 'type-safe-api';
+import { z } from 'zod';
+// Définissez vos routes une fois, profitez du typage partout
+```
+Consultez la documentation en anglais ci-dessus pour les exemples complets de définition de routes et de génération OpenAPI.
